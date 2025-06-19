@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from django.conf import settings
-from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import generics
 from rest_framework_simplejwt.exceptions import TokenError
 
@@ -30,7 +29,10 @@ class CookieLoginView(APIView):
         user = authenticate(request, username=username, password=password)
 
         if user is None:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"error": "Invalid credentials"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
@@ -59,7 +61,8 @@ class CookieRefreshView(APIView):
         refresh_token = request.COOKIES.get(settings.SIMPLE_JWT["AUTH_COOKIE"])
         if not refresh_token:
             return Response(
-                {"detail": "No refresh token in cookie"}, status=status.HTTP_401_UNAUTHORIZED
+                {"detail": "No refresh token in cookie"},
+                status=status.HTTP_401_UNAUTHORIZED,
             )
 
         try:
@@ -95,5 +98,8 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Usuario creado correctamente"}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"message": "Usuario creado correctamente"},
+                status=status.HTTP_201_CREATED,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
