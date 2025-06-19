@@ -29,6 +29,11 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
    # editar .env para ajustar SECRET_KEY y otras opciones
    ```
 
+   De forma predeterminada la aplicación usa SQLite para desarrollo. Para un
+   entorno de producción establece `DEBUG=False` y configura las variables
+   `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST` y
+   `POSTGRES_PORT` en el archivo `.env`.
+
 4. Aplicar migraciones y ejecutar el servidor de desarrollo:
 
    ```bash
