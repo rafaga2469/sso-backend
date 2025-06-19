@@ -1,7 +1,6 @@
 # SSO Backend
 
-Este proyecto es una API sencilla de autenticación implementada con **Django** y **Django REST Framework**. Proporciona un mecanismo de inicio de sesión, registro de usuarios y obtención de tokens JWT empleando `rest_framework_simplejwt`. También incluye soporte CORS para permitir peticiones desde un cliente front‑end.
-
+Este proyecto es una API sencilla de autenticación implementada con **Django** y **Django REST Framework**. Proporciona un mecanismo de inicio de sesión, registro de usuarios y obtención de tokens JWT empleando `rest_framework_simplejwt`. También incluye soporte CORS para permitir peticiones desde un cliente front‑end. Ahora incorpora un proveedor **OAuth2** mediante `django-oauth-toolkit` para facilitar la identidad federada.
 ## Requisitos
 
 - Python 3.10 o superior
@@ -34,7 +33,7 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
    `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST` y
    `POSTGRES_PORT` en el archivo `.env`.
 
-4. Aplicar migraciones y ejecutar el servidor de desarrollo:
+4. Aplicar migraciones (incluyen las tablas de `django-oauth-toolkit`) y ejecutar el servidor de desarrollo:
 
    ```bash
    python manage.py migrate
@@ -48,6 +47,8 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
 - `POST /sso/logout/` — cierra la sesión eliminando la cookie de refresco.
 - `GET /sso/me/` — devuelve información del usuario autenticado.
 - `POST /sso/register/` — crea un nuevo usuario.
+
+Para flujos OAuth2 estándar puedes utilizar los endpoints incluidos bajo la ruta `/o/` que proporciona `django-oauth-toolkit` (por ejemplo `POST /o/token/` para obtener un token de acceso).
 
 Todos los endpoints anteriores se definen en el módulo `sso`.
 

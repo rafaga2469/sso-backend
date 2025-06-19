@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'oauth2_provider',
     'corsheaders',
     'sso',
 ]
@@ -145,7 +146,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
+}
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Lectura de datos',
+        'write': 'Escritura de datos',
+    }
 }
 
 CORS_ALLOWED_ORIGINS = [
