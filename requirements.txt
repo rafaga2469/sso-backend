@@ -4,3 +4,4 @@ django-cors-headers
 djangorestframework-simplejwt
 python-decouple
 psycopg2-binary
+django-oauth-toolkit==3.0.1
