@@ -22,7 +22,14 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
    pip install -r requirements.txt
    ```
 
-3. Aplicar migraciones y ejecutar el servidor de desarrollo:
+3. Copiar el archivo `.env.example` a `.env` y ajustar los valores sensibles:
+
+   ```bash
+   cp .env.example .env
+   # editar .env para ajustar SECRET_KEY y otras opciones
+   ```
+
+4. Aplicar migraciones y ejecutar el servidor de desarrollo:
 
    ```bash
    python manage.py migrate
