@@ -52,6 +52,63 @@ Para flujos OAuth2 estándar puedes utilizar los endpoints incluidos bajo la rut
 
 Todos los endpoints anteriores se definen en el módulo `sso`.
 
+## Consumo del API con JWT
+
+El inicio de sesión se realiza enviando las credenciales al endpoint
+`/api/token/cookie/`. La respuesta incluye el **access token** y almacena el
+**refresh token** en una cookie denominada `refresh_token`.
+
+```bash
+curl -X POST http://localhost:8000/api/token/cookie/ \
+     -H "Content-Type: application/json" \
+     -d '{"username": "usuario", "password": "contraseña"}'
+```
+
+Para acceder a un recurso protegido se utiliza el token de acceso en la cabecera
+`Authorization`:
+
+```bash
+curl http://localhost:8000/api/me/ \
+     -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
+Cuando el token expira puede renovarse con la cookie de refresco:
+
+```bash
+curl -X POST http://localhost:8000/api/token/refresh/ \
+     --cookie "refresh_token=<valor>"
+```
+
+Finalmente, para cerrar la sesión basta con llamar a `/api/logout/` enviando la
+misma cookie:
+
+```bash
+curl -X POST http://localhost:8000/api/logout/ \
+     --cookie "refresh_token=<valor>"
+```
+
+## Consumo del API con OAuth2
+
+`django-oauth-toolkit` expone sus endpoints bajo la ruta `/o/`. Tras crear una
+aplicación OAuth2 en el panel de administración (`/admin/`), se puede obtener un
+token de acceso usando el flujo `password`:
+
+```bash
+curl -X POST http://localhost:8000/o/token/ \
+     -d "grant_type=password" \
+     -d "username=usuario" \
+     -d "password=contraseña" \
+     -d "client_id=CLIENT_ID" \
+     -d "client_secret=CLIENT_SECRET"
+```
+
+El token recibido se envía de la misma forma en la cabecera `Authorization`:
+
+```bash
+curl http://localhost:8000/api/me/ \
+     -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
 ## Desarrollo
 
 El archivo `sso_backend/settings.py` configura `rest_framework_simplejwt` y `django-cors-headers`. Revisa este archivo si necesitas modificar tiempos de expiración de los tokens o el origen permitido de CORS.
