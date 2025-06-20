@@ -32,6 +32,9 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
    entorno de producción establece `DEBUG=False` y configura las variables
    `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST` y
    `POSTGRES_PORT` en el archivo `.env`.
+   
+   También puedes definir `FRONTEND_LOGIN_URL` para que las vistas de Django
+   redirijan al formulario de inicio de sesión de React cuando sea necesario.
 
 4. Aplicar migraciones (incluyen las tablas de `django-oauth-toolkit`) y ejecutar el servidor de desarrollo:
 

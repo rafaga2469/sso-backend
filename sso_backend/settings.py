@@ -161,6 +161,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # frontend
 ]
 
+# URL del login del frontend de React. Cuando una vista requiere
+# autenticación, Django redirige a esta ruta en lugar de utilizar la
+# página de inicio de sesión por defecto.
+FRONTEND_LOGIN_URL = config(
+    "FRONTEND_LOGIN_URL",
+    default="http://localhost:5173/login",
+)
+LOGIN_URL = FRONTEND_LOGIN_URL
+
 # Si usas cookies (opcional)
 CORS_ALLOW_CREDENTIALS = True
 
