@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'sso',
 ]
 
+# Custom user model
+AUTH_USER_MODEL = 'sso.User'
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
