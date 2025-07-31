@@ -48,7 +48,7 @@ Este proyecto es una API sencilla de autenticación implementada con **Django** 
 - `POST /sso/token/cookie/` — inicio de sesión, devuelve el token de acceso y guarda el token de refresco en una cookie.
 - `POST /sso/token/refresh/` — renueva el token de acceso utilizando la cookie de refresco.
 - `POST /sso/logout/` — cierra la sesión eliminando la cookie de refresco.
-- `GET /sso/me/` — devuelve información del usuario autenticado.
+- `GET /sso/me/` — devuelve el email y el UUID del usuario autenticado.
 - `POST /sso/register/` — crea un nuevo usuario.
 
 Para flujos OAuth2 estándar puedes utilizar los endpoints incluidos bajo la ruta `/o/` que proporciona `django-oauth-toolkit` (por ejemplo `POST /o/token/` para obtener un token de acceso).
@@ -64,7 +64,7 @@ El inicio de sesión se realiza enviando las credenciales al endpoint
 ```bash
 curl -X POST http://localhost:8000/api/token/cookie/ \
      -H "Content-Type: application/json" \
-     -d '{"username": "usuario", "password": "contraseña"}'
+     -d '{"email": "usuario@example.com", "password": "contraseña"}'
 ```
 
 Para acceder a un recurso protegido se utiliza el token de acceso en la cabecera
@@ -99,7 +99,7 @@ token de acceso usando el flujo `password`:
 ```bash
 curl -X POST http://localhost:8000/o/token/ \
      -d "grant_type=password" \
-     -d "username=usuario" \
+     -d "username=usuario@example.com" \
      -d "password=contraseña" \
      -d "client_id=CLIENT_ID" \
      -d "client_secret=CLIENT_SECRET"

@@ -17,7 +17,7 @@ class UserInfoView(APIView):
     def get(self, request):
         user = request.user
         return Response({
-            "username": user.username,
+            "uuid": str(user.uuid),
             "email": user.email,
         })
 
