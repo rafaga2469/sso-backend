@@ -24,9 +24,9 @@ class UserInfoView(APIView):
 
 class CookieLoginView(APIView):
     def post(self, request):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is None:
             return Response(
